@@ -14,7 +14,7 @@ services:
     ports:
       - "3306:3306"
 
-  phpmyadmin:
+  phpmyadmin_tres_vozes_news_db:
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
