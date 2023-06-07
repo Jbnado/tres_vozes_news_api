@@ -1,24 +1,33 @@
 import uuid
+from sqlalchemy.dialects.postgresql import UUID, DATE
 import datetime
 from passlib.hash import sha256_crypt
 from db import db
 
 
 class UserModel(db.Model):
-    __tablename__ = 'Users'
+    __tablename__ = "Users"
 
-    id = db.Column(db.String(36), primary_key=True, default=str(
-        uuid.uuid4()), unique=True, nullable=False)
+    id = db.Column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     name = db.Column(db.String(255), nullable=False)
-    birth_date = db.Column(db.Date, nullable=False)
+    birth_date = db.Column(DATE, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     admin = db.Column(db.Boolean, default=False, nullable=False)
-    created_at = db.Column(
-        db.DateTime, default=datetime.datetime.now(), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now(), nullable=False)
     updated_at = db.Column(
-        db.DateTime, default=datetime.datetime.now(), nullable=False, onupdate=datetime.datetime.now())
+        db.DateTime,
+        default=datetime.datetime.now(),
+        nullable=False,
+        onupdate=datetime.datetime.now(),
+    )
 
     def __init__(self, name, birth_date, email, cpf, password, admin):
         self.name = name
@@ -51,14 +60,14 @@ class UserModel(db.Model):
 
     def json(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'birth_date': self.birth_date.strftime('%d/%m/%Y'),
-            'email': self.email,
-            'cpf': self.cpf,
-            'admin': self.admin,
-            'created_at': self.created_at.strftime('%d/%m/%Y %H:%M:%S'),
-            'updated_at': self.updated_at.strftime('%d/%m/%Y %H:%M:%S')
+            "id": str(self.id),
+            "name": self.name,
+            "birth_date": str(self.birth_date),
+            "email": self.email,
+            "cpf": self.cpf,
+            "admin": self.admin,
+            "created_at": str(self.created_at),
+            "updated_at": str(self.updated_at),
         }
 
     @staticmethod
@@ -80,5 +89,6 @@ class UserModel(db.Model):
         except:
             return None
         if user.checkPassword(password):
+            print(user.json())
             return user.json()
         return None
