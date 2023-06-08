@@ -38,7 +38,7 @@ class UserController:
 
     @user_blueprint.delete("/<id>")
     @isAdmin(adminRequired=True)
-    def delete(self, id):
+    def delete(id):
         try:
             user = UserModel.getOneUser(id)
             if user:
