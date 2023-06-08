@@ -2,15 +2,21 @@
 
 ## Para rodar o projeto:
 
-1. Clone o repositório
+- 1. Clone o repositório
 
-2. Instale as dependências python com o pip
+- 2. Instale as dependências python com o pip
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Rode o projeto
+- 3. Inicie o bando de dados postgres
+
+```bash
+docker compose up -d
+```
+
+- 4. Inicie o projeto
 
 ```bash
 python main.py
