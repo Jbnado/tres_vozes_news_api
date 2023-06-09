@@ -1,5 +1,4 @@
-import datetime
-from flask import Blueprint, request, make_response, current_app
+from flask import Blueprint, request
 from topic.topic_model import TopicModel
 from middleware_is_admin import isAdmin
 
