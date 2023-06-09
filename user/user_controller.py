@@ -1,5 +1,4 @@
 import datetime
-import uuid
 import jwt
 from flask import Blueprint, request, make_response, current_app
 from user.user_model import UserModel
@@ -27,7 +26,6 @@ class UserController:
         try:
             data = request.get_json()
             user = UserModel.getOneUser(id)
-            print(f"User: {user.json()}")
             if user:
                 user.updateUser(data)
                 return user.json(), 200
@@ -95,8 +93,7 @@ class UserController:
             payload = {
                 "id": user["id"],
                 "admin": user["admin"],
-                "exp": datetime.datetime.utcnow()
-                + datetime.timedelta(days=0, minutes=30),
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=3),
             }
             token = jwt.encode(
                 payload,
