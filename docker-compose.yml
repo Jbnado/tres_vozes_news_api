@@ -1,4 +1,11 @@
 services:
+  api:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
   postgres:
     container_name: postgres
     working_dir: /usr/
