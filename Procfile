@@ -1,1 +1,1 @@
-web: command_to_start_your_web_process
+web: docker compose up
