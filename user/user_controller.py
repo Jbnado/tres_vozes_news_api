@@ -100,11 +100,9 @@ class UserController:
                 current_app.config["SECRET_KEY"],
                 algorithm="HS256",
             )
-            response = make_response(
+            return make_response(
                 {"message": "User logged in successfully!", "token": token}, 200
             )
-            response.set_cookie("token", token, httponly=True)
-            return response
 
     @user_blueprint.post("/logout")
     def logout():
