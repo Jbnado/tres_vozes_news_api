@@ -106,9 +106,8 @@ class UserController:
 
     @user_blueprint.post("/logout")
     def logout():
-        token = request.cookies.get("token")
+        token = request.headers.get("Authorization")
         if not token:
             return {"message": "User not logged in"}, 400
         response = make_response({"message": "User logged out successfully!"}, 200)
-        response.set_cookie("token", "", expires=0)
         return response
