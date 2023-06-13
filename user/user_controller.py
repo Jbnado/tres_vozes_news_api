@@ -101,7 +101,12 @@ class UserController:
                 algorithm="HS256",
             )
             return make_response(
-                {"message": "User logged in successfully!", "token": token}, 200
+                {
+                    "message": "User logged in successfully!",
+                    "token": token,
+                    "user": user,
+                },
+                200,
             )
 
     @user_blueprint.post("/logout")
@@ -109,5 +114,6 @@ class UserController:
         token = request.headers.get("Authorization")
         if not token:
             return {"message": "User not logged in"}, 400
+        request.headers["Authorization"] = ""
         response = make_response({"message": "User logged out successfully!"}, 200)
         return response
