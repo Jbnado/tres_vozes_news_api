@@ -8,10 +8,13 @@ def isAdmin(adminRequired=True):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            print(adminRequired)
             try:
                 # get token from header authorization
                 token = request.headers.get("Authorization")
-                if not token:
+                if not token and not adminRequired:
+                    return f(*args, **kwargs)
+                elif not token and adminRequired == True:
                     return make_response({"message": "Token is missing"}, 401)
                 payload = jwt.decode(
                     token, current_app.config["SECRET_KEY"], algorithms=["HS256"]

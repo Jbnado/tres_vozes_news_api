@@ -114,6 +114,5 @@ class UserController:
         token = request.headers.get("Authorization")
         if not token:
             return {"message": "User not logged in"}, 400
-        request.headers["Authorization"] = ""
         response = make_response({"message": "User logged out successfully!"}, 200)
         return response
