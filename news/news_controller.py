@@ -20,7 +20,6 @@ class NewsController:
             return {"message": "Internal server error"}, 500
 
     @news_blueprint.get("/<id>")
-    @isAdmin(adminRequired=False)
     def getOneNews(id):
         try:
             news = NewsModel.getOneNews(id)
@@ -32,7 +31,6 @@ class NewsController:
             return {"message": "Internal server error"}, 500
 
     @news_blueprint.get("/")
-    @isAdmin(adminRequired=False)
     def getAllNews():
         try:
             news = NewsModel.getAllNews()
